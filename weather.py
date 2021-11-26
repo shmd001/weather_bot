@@ -1,15 +1,19 @@
-import pyowm
 import config
+import requests
+import json
 
 class Weather():
     def __init__(self):
-        owm = pyowm.OWM(config.api_key)
-        mgr = owm.weather_manager()
+        pass
         
-    def get_weather(self, city):
-        observation = self.mgr.weather_at_place(city)
-        w = observation.weather
+    def get_temperature(self, city):
+        r = requests.get(
+            f'http://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={config.api_key}')
+        response = json.loads(r.text)
         
-        temperature = w.temperature('celcius')['temp']
+        if response['cod'] != 200:
+            return 'Город не найден'
         
-        return temperature
+        temperature = round(response['main']['temp'])
+        
+        return f'В городе {city} сейчас {temperature}˚C'

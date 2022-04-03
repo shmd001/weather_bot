@@ -1,3 +1,3 @@
-# weather_bot
+# Weather bot ☀️
 
-Телеграм бот для получения сведений о погоде
+Telegram bot for getting weather information
